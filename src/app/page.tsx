@@ -140,10 +140,6 @@ export default function Home() {
           <p>
             This simulation demonstrates how different harmonics combine to create complex waveforms.
           </p>
-          <p>
-            Toggle individual harmonics, adjust their parameters, and watch how they combine to form
-            the final wave pattern. The equation updates in real-time to show the current wave function.
-          </p>
         </div>
       </div>
     </main>
