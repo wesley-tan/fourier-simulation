@@ -9,7 +9,7 @@ export default function Home() {
   const [phase, setPhase] = useState(0);
   const [harmonics, setHarmonics] = useState(1);
   const [speed, setSpeed] = useState(0.05);
-  const [waveColor, setWaveColor] = useState('#4F46E5');
+  const [waveColor, setWaveColor] = useState('#6366f1');
   const [showEquation, setShowEquation] = useState(true);
   const [activeHarmonics, setActiveHarmonics] = useState<boolean[]>([true]);
 
@@ -33,128 +33,90 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100 py-8">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Fourier Transform Wave Simulation
-        </h1>
-        
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Amplitude: {amplitude}
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="100"
-                  value={amplitude}
-                  onChange={(e) => setAmplitude(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
+    <main>
+      <div className="container">
+        <h1>Fourier Transform Wave Simulation</h1>
+        <div className="panel">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
+            <div style={{ flex: 1, minWidth: 250 }}>
+              <label>Amplitude: {amplitude}</label>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value={amplitude}
+                onChange={(e) => setAmplitude(Number(e.target.value))}
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Frequency: {frequency}
-                </label>
-                <input
-                  type="range"
-                  min="0.1"
-                  max="5"
-                  step="0.1"
-                  value={frequency}
-                  onChange={(e) => setFrequency(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
+              <label>Frequency: {frequency}</label>
+              <input
+                type="range"
+                min="0.1"
+                max="5"
+                step="0.1"
+                value={frequency}
+                onChange={(e) => setFrequency(Number(e.target.value))}
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Animation Speed: {speed.toFixed(2)}
-                </label>
-                <input
-                  type="range"
-                  min="0.01"
-                  max="0.2"
-                  step="0.01"
-                  value={speed}
-                  onChange={(e) => setSpeed(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
+              <label>Animation Speed: {speed.toFixed(2)}</label>
+              <input
+                type="range"
+                min="0.01"
+                max="0.2"
+                step="0.01"
+                value={speed}
+                onChange={(e) => setSpeed(Number(e.target.value))}
+              />
             </div>
+            <div style={{ flex: 1, minWidth: 250 }}>
+              <label>Phase: {phase.toFixed(2)}π</label>
+              <input
+                type="range"
+                min="0"
+                max="2"
+                step="0.1"
+                value={phase}
+                onChange={(e) => setPhase(Number(e.target.value))}
+              />
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phase: {phase.toFixed(2)}π
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="2"
-                  step="0.1"
-                  value={phase}
-                  onChange={(e) => setPhase(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
+              <label>Harmonics: {harmonics}</label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={harmonics}
+                onChange={(e) => setHarmonics(Number(e.target.value))}
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Harmonics: {harmonics}
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={harmonics}
-                  onChange={(e) => setHarmonics(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Wave Color
-                </label>
-                <input
-                  type="color"
-                  value={waveColor}
-                  onChange={(e) => setWaveColor(e.target.value)}
-                  className="w-full h-10 rounded-lg cursor-pointer"
-                />
-              </div>
+              <label>Wave Color</label>
+              <input
+                type="color"
+                value={waveColor}
+                onChange={(e) => setWaveColor(e.target.value)}
+              />
             </div>
           </div>
 
-          <div className="mt-6">
-            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+          <div style={{ marginTop: '1.5rem' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <input
                 type="checkbox"
                 checked={showEquation}
                 onChange={(e) => setShowEquation(e.target.checked)}
-                className="rounded text-indigo-600 focus:ring-indigo-500"
               />
-              <span>Show Equation</span>
+              Show Equation
             </label>
           </div>
 
-          <div className="mt-6">
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Active Harmonics:</h3>
-            <div className="flex flex-wrap gap-2">
+          <div style={{ marginTop: '1.5rem' }}>
+            <span className="label" style={{ fontWeight: 700, color: '#fff' }}>Active Harmonics:</span>
+            <div className="toggle-group">
               {activeHarmonics.map((active, index) => (
                 <button
                   key={index}
                   onClick={() => toggleHarmonic(index)}
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    active
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
+                  className={`toggle-btn${active ? ' active' : ''}`}
+                  aria-pressed={active}
                 >
                   Harmonic {index + 1}
                 </button>
@@ -174,8 +136,8 @@ export default function Home() {
           activeHarmonics={activeHarmonics}
         />
 
-        <div className="mt-8 text-center text-gray-600">
-          <p className="mb-2">
+        <div className="text-center mt-8">
+          <p>
             This simulation demonstrates how different harmonics combine to create complex waveforms.
           </p>
           <p>

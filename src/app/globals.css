@@ -1,15 +1,13 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #18181b;
+  --foreground: #fff;
+  --primary: #6366f1;
+  --primary-dark: #4338ca;
+  --panel: #232336;
+  --panel-light: #2d2d44;
+  --border: #444;
+  --font-inter: 'Inter', sans-serif;
+  --gray-200: #e5e7eb;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,17 +20,141 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 #0004;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+label, .label {
+  color: var(--foreground);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input[type="range"], input[type="color"] {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+input[type="range"] {
+  accent-color: var(--primary);
+}
+
+input[type="color"] {
+  height: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel-light);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--primary);
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button.inactive {
+  background: var(--panel-light);
+  color: #bbb;
+}
+button:last-child {
+  margin-right: 0;
+}
+
+.equation {
+  background: #fff;
+  color: #18181b;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 #0002;
+  padding: 1rem 2rem;
+  margin: 1.5rem auto 0 auto;
+  max-width: 700px;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+.wave-canvas {
+  width: 100%;
+  height: 400px;
+  background: #18181b;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 2px 16px 0 #0004;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 /* Custom styles for range inputs */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: #e5e7eb;
+  background: var(--gray-200);
   border-radius: 0.5rem;
   height: 0.5rem;
   outline: none;
+  width: 100%;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -40,20 +162,20 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 1.25rem;
   height: 1.25rem;
-  background: #4F46E5;
+  background: var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.15s ease-in-out;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: #4338CA;
+  background: var(--primary-color-hover);
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 1.25rem;
   height: 1.25rem;
-  background: #4F46E5;
+  background: var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
   border: none;
@@ -61,5 +183,45 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[type="range"]::-moz-range-thumb:hover {
-  background: #4338CA;
+  background: var(--primary-color-hover);
+}
+
+.toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  background: #232336;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 24px 0 #0006;
+  justify-content: flex-start;
+}
+
+.toggle-btn {
+  min-width: 120px;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 2px 8px 0 #0002;
+  margin-bottom: 0.5rem;
+}
+.toggle-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border: 2px solid var(--primary-dark);
+  box-shadow: 0 4px 16px 0 var(--primary-dark);
+}
+.toggle-btn:focus, .toggle-btn:hover {
+  border: 2px solid var(--primary-dark);
+  background: #6366f1;
+  color: #fff;
 }

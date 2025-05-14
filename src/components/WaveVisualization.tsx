@@ -28,14 +28,14 @@ const WaveVisualization: React.FC<WaveVisualizationProps> = ({
 
   const generateEquation = () => {
     let equation = 'f(x) = ';
+    let first = true;
     for (let n = 1; n <= harmonics; n++) {
       if (activeHarmonics[n - 1]) {
+        if (!first) equation += ' + ';
+        first = false;
         const harmonicAmplitude = (amplitude / n).toFixed(1);
         const harmonicFrequency = (frequency * n).toFixed(1);
         equation += `${harmonicAmplitude}sin(${harmonicFrequency}x + ${phase.toFixed(1)}π)`;
-        if (n < harmonics && activeHarmonics[n]) {
-          equation += ' + ';
-        }
       }
     }
     return equation;
@@ -49,10 +49,8 @@ const WaveVisualization: React.FC<WaveVisualizationProps> = ({
     if (!ctx) return;
 
     const animate = () => {
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw individual harmonics
       for (let n = 1; n <= harmonics; n++) {
         if (activeHarmonics[n - 1]) {
           ctx.strokeStyle = `${waveColor}${Math.floor(255 * (1 - n / harmonics))}`;
@@ -75,14 +73,12 @@ const WaveVisualization: React.FC<WaveVisualizationProps> = ({
         }
       }
 
-      // Draw the combined wave
       ctx.strokeStyle = waveColor;
       ctx.lineWidth = 2;
       ctx.beginPath();
 
       for (let x = 0; x < canvas.width; x++) {
         let y = canvas.height / 2;
-        
         for (let n = 1; n <= harmonics; n++) {
           if (activeHarmonics[n - 1]) {
             const harmonicAmplitude = amplitude / n;
@@ -90,32 +86,29 @@ const WaveVisualization: React.FC<WaveVisualizationProps> = ({
             y += harmonicAmplitude * Math.sin(2 * Math.PI * harmonicFrequency * (x / canvas.width) + phase + time);
           }
         }
-
         if (x === 0) {
           ctx.moveTo(x, y);
         } else {
           ctx.lineTo(x, y);
         }
       }
-
       ctx.stroke();
       setTime(prev => prev + speed);
       requestAnimationFrame(animate);
     };
-
     animate();
   }, [amplitude, frequency, phase, harmonics, speed, waveColor, activeHarmonics]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div>
       <canvas
         ref={canvasRef}
         width={800}
         height={400}
-        className="w-full h-[400px] bg-gray-900 rounded-lg mb-4"
+        className="wave-canvas"
       />
       {showEquation && (
-        <div className="text-center text-gray-700 font-mono text-lg bg-white p-4 rounded-lg shadow">
+        <div className="equation">
           {generateEquation()}
         </div>
       )}
